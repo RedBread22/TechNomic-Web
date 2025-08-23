@@ -36,6 +36,7 @@ export function ChatPanel({
   const [isBotTyping, setIsBotTyping] = useState(false);
   const { toast } = useToast();
   const viewportRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const searchParams = useSearchParams();
 
   const isPersistenceDisabled = searchParams.get('chat') !== 'keep';
@@ -104,6 +105,7 @@ export function ChatPanel({
     } finally {
       setIsSending(false);
       setIsBotTyping(false);
+      inputRef.current?.focus();
     }
   };
 
@@ -162,6 +164,7 @@ export function ChatPanel({
       <div className="border-t border-white/10 p-4">
         <div className="relative">
           <Input
+            ref={inputRef}
             value={inputValue}
             onChange={e => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
