@@ -4,7 +4,6 @@ import { AdvantagesSection } from '@/components/sections/advantages';
 import { ConfiguratorSection } from '@/components/sections/configurator';
 import { AboutSection } from '@/components/sections/about';
 import { ContactSection } from '@/components/sections/contact';
-import { InterludeSection } from '@/components/sections/interlude';
 import { FinalSection } from '@/components/sections/final';
 
 export default function Home() {
@@ -15,7 +14,6 @@ export default function Home() {
         <HeroSection />
         <AdvantagesSection />
         <AboutSection />
-        <InterludeSection />
         <ConfiguratorSection />
         <ContactSection />
         <FinalSection />
