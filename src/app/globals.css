@@ -43,7 +43,8 @@
     @apply bg-background text-foreground;
     background-color: #121622;
   }
-  section {
+  /* Apply mask only to direct section children of the main content area */
+  main > section {
     mask-image: linear-gradient(
       to bottom,
       transparent 0%,
