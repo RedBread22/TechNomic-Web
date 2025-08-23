@@ -30,12 +30,12 @@ export function ImageParallaxSection() {
           style={{ transform: `scale(${scale})` }}
         >
           <Image
-            src="https://placehold.co/600x400.png"
-            alt="Parallax Image"
+            src="/creation-of-adam-ai.png"
+            alt="A human hand and a robotic hand reaching towards each other, in the style of The Creation of Adam."
             width={600}
             height={400}
             className="h-auto w-full max-w-[90%] rounded-lg object-contain md:max-w-full"
-            data-ai-hint="abstract illustration dark"
+            data-ai-hint="creation of adam robot"
           />
         </div>
       </div>
