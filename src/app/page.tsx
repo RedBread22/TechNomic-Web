@@ -9,7 +9,6 @@ import { ImageParallaxSection } from '@/components/sections/image-parallax';
 import { ProcessSection } from '@/components/sections/process';
 import { SecuritySection } from '@/components/sections/security';
 import { FaqSection } from '@/components/sections/faq';
-import { ServiceAreaSection } from '@/components/sections/service-area';
 
 export default function Home() {
   return (
@@ -23,7 +22,6 @@ export default function Home() {
         <ProcessSection />
         <SecuritySection />
         <ConfiguratorSection />
-        <ServiceAreaSection />
         <ContactSection />
         <FaqSection />
         <FinalSection />
