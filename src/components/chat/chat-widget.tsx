@@ -2,12 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { MessageSquare, X } from 'lucide-react';
+import { MessageSquare } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ChatPanel } from './chat-panel';
-import { useIsMobile } from '@/hooks/use-mobile';
-
 
 // --- CONFIG ---
 const OPEN_ON_LOAD_PARAM = 'chat'; // e.g. ?chat=open
@@ -16,7 +14,6 @@ const OPEN_ON_LOAD_PARAM = 'chat'; // e.g. ?chat=open
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const searchParams = useSearchParams();
-  const isMobile = useIsMobile();
 
   // Handle open state from URL param
   useEffect(() => {
@@ -24,7 +21,6 @@ export function ChatWidget() {
       setIsOpen(true);
     }
   }, [searchParams]);
-
 
   const toggleOpen = () => setIsOpen(prev => !prev);
   
@@ -37,7 +33,6 @@ export function ChatWidget() {
     hidden: { opacity: 0, y: 50, scale: 0.95 },
     visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.3, ease: 'easeOut' } },
   };
-
 
   return (
     <div className="fixed bottom-4 right-4 z-50 sm:bottom-6 sm:right-6">
