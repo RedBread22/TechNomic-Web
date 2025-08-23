@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import { AppProvider } from '@/context/app-context';
 import { Toaster } from '@/components/ui/toaster';
 import { Background } from '@/components/background';
+import { ChatWidget } from '@/components/chat/chat-widget';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
@@ -42,6 +43,7 @@ export default function RootLayout({
           <Background />
           {children}
           <Toaster />
+          <ChatWidget />
         </AppProvider>
       </body>
     </html>
