@@ -21,7 +21,7 @@ export function ChatMessage({ message }: { message: Message }) {
     >
       {isBot && (
         <Avatar className="h-12 w-12 border border-white/10">
-           <AvatarImage src="/images/1Bot.png" alt="Bot-Avatar" />
+           <AvatarImage src="/images/4Bot.png" alt="Bot-Avatar" />
            <AvatarFallback className="bg-transparent text-sm">AI</AvatarFallback>
         </Avatar>
       )}
