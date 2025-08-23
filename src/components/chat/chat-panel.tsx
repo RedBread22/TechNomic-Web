@@ -13,14 +13,12 @@ import { TypingIndicator } from './typing-indicator';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
-// --- CONFIG ---
 const WEBHOOK_URL = 'https://myn8n.technomic.at/webhook/ec30c1b9-a8eb-4e56-a860-c5a48a7f3938';
 const INITIAL_BOT_MESSAGE: Message = {
   id: 'initial-bot-message',
   role: 'bot',
   text: 'Hallo! Wir sind der digitale Assistent von TechNomic. Wie können wir Ihnen bei Fragen zu Webdesign, Hosting oder IT-Support helfen?\n\nDurch die Nutzung dieses Chats stimmen Sie unserer Datenschutzerklärung zu.',
 };
-// --------------
 
 export function ChatPanel({
   onClose,
@@ -41,15 +39,12 @@ export function ChatPanel({
 
   const isPersistenceDisabled = searchParams.get('chat') !== 'keep';
 
-  // Generate a new conversation ID on initial mount or when persistence is disabled
   useEffect(() => {
     const newId = uuidv4();
     setConversationId(newId);
     setMessages([INITIAL_BOT_MESSAGE]);
   }, [isPersistenceDisabled]);
 
-
-  // Auto-scroll to bottom
   useEffect(() => {
     if (viewportRef.current) {
       viewportRef.current.scrollTo({
@@ -58,14 +53,12 @@ export function ChatPanel({
       });
     }
   }, [messages, isBotTyping]);
-  
-  // Refocus input after message is sent
+
   useEffect(() => {
     if (!isSending) {
       inputRef.current?.focus();
     }
   }, [isSending]);
-
 
   const handleSendMessage = async (text: string) => {
     if (!text.trim() || isSending) return;
@@ -82,7 +75,7 @@ export function ChatPanel({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: text,
-          conversationId: conversationId,
+          conversationId,
           sessionId: conversationId,
           user: 'website',
           page: window.location.href,
@@ -90,16 +83,12 @@ export function ChatPanel({
         }),
       });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+      if (!response.ok) throw new Error('Network response was not ok');
 
       const responseData = await response.json();
       const botReplyText = responseData.output || 'Entschuldigung, ich konnte keine Antwort finden.';
-      
       const newBotMessage: Message = { id: uuidv4(), role: 'bot', text: botReplyText };
       setMessages(prev => [...prev, newBotMessage]);
-
     } catch (error) {
       console.error('Error sending message:', error);
       toast({
@@ -107,8 +96,8 @@ export function ChatPanel({
         title: 'Fehler beim Senden',
         description: 'Bitte später erneut versuchen.',
       });
-       const errorBotMessage: Message = { id: uuidv4(), role: 'bot', text: 'Fehler: Nachricht konnte nicht gesendet werden.' };
-       setMessages(prev => [...prev, errorBotMessage]);
+      const errorBotMessage: Message = { id: uuidv4(), role: 'bot', text: 'Fehler: Nachricht konnte nicht gesendet werden.' };
+      setMessages(prev => [...prev, errorBotMessage]);
     } finally {
       setIsSending(false);
       setIsBotTyping(false);
@@ -121,22 +110,22 @@ export function ChatPanel({
       handleSendMessage(inputValue);
     }
   };
-  
+
   const handleClearChat = () => {
     setMessages([INITIAL_BOT_MESSAGE]);
-    setConversationId(uuidv4()); // Start a new conversation
+    setConversationId(uuidv4());
   };
 
   return (
     <div
       className={cn(
-        'flex h-[70vh] w-full max-w-[420px] flex-col overflow-hidden rounded-2xl border border-white/10 bg-background/50 shadow-2xl backdrop-blur-xl',
+        // Mobile: max-w-full, Desktop: max-w-[420px]
+        'flex h-[70vh] w-full max-w-full md:max-w-[420px] flex-col overflow-hidden rounded-2xl border border-white/10 bg-background/50 shadow-2xl backdrop-blur-xl',
         className
       )}
       role="dialog"
       aria-labelledby="chat-header"
     >
-      {/* Header */}
       <header id="chat-header" className="flex items-center justify-between border-b border-white/10 p-4">
         <h2 className="text-lg font-semibold">Chat</h2>
         <div className="flex items-center gap-1">
@@ -151,22 +140,17 @@ export function ChatPanel({
         </div>
       </header>
 
-      {/* Messages */}
       <ScrollArea className="flex-1" viewportRef={viewportRef}>
         <div className="space-y-6 p-4">
-          {messages.map(msg => (
-            <ChatMessage key={msg.id} message={msg} />
-          ))}
+          {messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
           {isBotTyping && <TypingIndicator />}
         </div>
       </ScrollArea>
-      
-      <div className='px-4 pb-2 text-center text-xs text-muted-foreground'>
-         Hinweis: Nachrichten werden an unseren Automations-Dienst verarbeitet.
+
+      <div className="px-4 pb-2 text-center text-xs text-muted-foreground">
+        Hinweis: Nachrichten werden an unseren Automations-Dienst verarbeitet.
       </div>
 
-
-      {/* Composer */}
       <div className="border-t border-white/10 p-4">
         <div className="relative">
           <Input
@@ -191,8 +175,8 @@ export function ChatPanel({
           </Button>
         </div>
         <div className="mt-2.5 flex justify-center gap-x-4 text-xs">
-            <Link href="/recht#datenschutz" className="text-muted-foreground hover:text-foreground">Datenschutz</Link>
-            <Link href="/recht#impressum" className="text-muted-foreground hover:text-foreground">Impressum</Link>
+          <Link href="/recht#datenschutz" className="text-muted-foreground hover:text-foreground">Datenschutz</Link>
+          <Link href="/recht#impressum" className="text-muted-foreground hover:text-foreground">Impressum</Link>
         </div>
       </div>
     </div>
