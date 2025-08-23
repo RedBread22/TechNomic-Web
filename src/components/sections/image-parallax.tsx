@@ -30,7 +30,7 @@ export function ImageParallaxSection() {
           style={{ transform: `scale(${scale})` }}
         >
           <Image
-            src="/images/1.png"
+            src="https://placehold.co/600x400.png"
             alt="Parallax Image"
             width={600}
             height={400}
