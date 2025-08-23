@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden py-24 sm:py-32 lg:py-40">
+    <section className="relative overflow-hidden bg-transparent py-24 sm:py-32 lg:py-40">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <div className="text-center lg:text-left">
@@ -25,7 +25,7 @@ export function HeroSection() {
             </div>
           </div>
           <div className="relative flex justify-center lg:justify-end">
-            <div className="rounded-xl bg-card/60 p-2 backdrop-blur-sm">
+            <div className="rounded-xl border border-white/10 bg-white/5 p-2 backdrop-blur-lg">
                 <Image
                   src="https://placehold.co/600x400.png"
                   alt="Illustration von Charts und Code"

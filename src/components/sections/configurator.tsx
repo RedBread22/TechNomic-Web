@@ -49,7 +49,8 @@ export function ConfiguratorSection() {
   const addons = modules.filter(m => m.type === 'addon');
 
   return (
-    <section id="konfigurator" className="py-20 sm:py-28">
+    <section id="konfigurator" className="relative bg-transparent py-24 sm:py-32">
+      <div className="section-glow-orange" />
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
@@ -65,7 +66,7 @@ export function ConfiguratorSection() {
               <h3 className="text-xl font-semibold">Basispakete</h3>
               <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {baseModules.map(module => (
-                  <div key={module.id} className="flex items-start space-x-3 rounded-lg border border-border p-4 transition-colors has-[:checked]:border-primary">
+                  <div key={module.id} className="flex items-start space-x-3 rounded-lg border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/10">
                     <Checkbox id={module.id} onCheckedChange={() => handleSelect(module.id)} />
                     <Label htmlFor={module.id} className="w-full cursor-pointer">
                       <span className="font-medium">{module.label}</span>
@@ -79,7 +80,7 @@ export function ConfiguratorSection() {
               <h3 className="text-xl font-semibold">Add-Ons</h3>
               <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {addons.map(module => (
-                  <div key={module.id} className="flex items-start space-x-3 rounded-lg border border-border p-4 transition-colors has-[:checked]:border-primary">
+                  <div key={module.id} className="flex items-start space-x-3 rounded-lg border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/10">
                     <Checkbox id={module.id} onCheckedChange={() => handleSelect(module.id)} />
                     <Label htmlFor={module.id} className="w-full cursor-pointer">
                       <span className="font-medium">{module.label}</span>
@@ -92,7 +93,7 @@ export function ConfiguratorSection() {
           </div>
 
           <div className="lg:col-span-1">
-            <Card className="sticky top-24 bg-card/60 backdrop-blur-sm">
+            <Card className="sticky top-24 border-white/10 bg-white/5 backdrop-blur-lg">
               <CardHeader>
                 <CardTitle>Ihre Preisschätzung</CardTitle>
               </CardHeader>

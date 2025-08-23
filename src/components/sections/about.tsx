@@ -11,7 +11,7 @@ const timelineSteps = [
 
 export function AboutSection() {
   return (
-    <section id="ueber-uns" className="bg-card/30 py-20 sm:py-28">
+    <section id="ueber-uns" className="relative bg-transparent py-24 sm:py-32">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-center">
           <div>
@@ -22,17 +22,17 @@ export function AboutSection() {
               Mit Standort in Bad Mitterndorf (AT) sind wir Ihr lokaler Experte für Webentwicklung, Cloud-Lösungen, KI-Integration und IT-Support. Wir schaffen digitale Erlebnisse, die begeistern und nachhaltig zum Erfolg führen.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Badge variant="secondary" className="rounded-full px-4 py-2 text-base">Schnelle Reaktion</Badge>
-              <Badge variant="secondary" className="rounded-full px-4 py-2 text-base">Transparente Preise</Badge>
-              <Badge variant="secondary" className="rounded-full px-4 py-2 text-base">EU-Hosting</Badge>
+              <Badge variant="secondary" className="border-transparent bg-white/5 px-4 py-2 text-base text-white/80 backdrop-blur-sm">Schnelle Reaktion</Badge>
+              <Badge variant="secondary" className="border-transparent bg-white/5 px-4 py-2 text-base text-white/80 backdrop-blur-sm">Transparente Preise</Badge>
+              <Badge variant="secondary" className="border-transparent bg-white/5 px-4 py-2 text-base text-white/80 backdrop-blur-sm">EU-Hosting</Badge>
             </div>
           </div>
           <div className="flow-root">
-            <div className="-my-8 divide-y divide-border">
+            <div className="-my-8 divide-y divide-white/10">
               {timelineSteps.map((step, stepIdx) => (
                 <div key={step.title} className="py-8">
                   <div className="flex items-center gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 backdrop-blur-sm">
                       {step.icon}
                     </div>
                     <div>

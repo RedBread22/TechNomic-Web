@@ -98,7 +98,7 @@ export function ContactSection() {
 
   return (
     <>
-      <section id="kontakt" className="py-20 sm:py-28">
+      <section id="kontakt" className="relative bg-transparent py-24 sm:py-32">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
@@ -108,7 +108,7 @@ export function ContactSection() {
               Wir freuen uns auf Ihre Nachricht und melden uns umgehend bei Ihnen.
             </p>
           </div>
-          <div className="mx-auto mt-16 max-w-2xl">
+          <div className="mx-auto mt-16 max-w-2xl rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-lg">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">

@@ -48,7 +48,8 @@ const advantages = [
 
 export function AdvantagesSection() {
   return (
-    <section id="vorteile" className="bg-card/30 py-20 sm:py-28">
+    <section id="vorteile" className="relative bg-transparent py-24 sm:py-32">
+       <div className="section-glow-pink" />
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
@@ -62,7 +63,7 @@ export function AdvantagesSection() {
           {advantages.map(advantage => (
             <Card
               key={advantage.title}
-              className="transform-gpu bg-card/60 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/10"
+              className="transform-gpu border-white/10 bg-white/5 backdrop-blur-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/10"
             >
               <CardHeader className="flex flex-col items-start gap-4">
                 {advantage.icon}
