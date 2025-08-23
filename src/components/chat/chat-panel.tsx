@@ -35,7 +35,7 @@ export function ChatPanel({
   const [isSending, setIsSending] = useState(false);
   const [isBotTyping, setIsBotTyping] = useState(false);
   const { toast } = useToast();
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
 
   const isPersistenceDisabled = searchParams.get('chat') !== 'keep';
@@ -50,9 +50,9 @@ export function ChatPanel({
 
   // Auto-scroll to bottom
   useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTo({
-        top: scrollAreaRef.current.scrollHeight,
+    if (viewportRef.current) {
+      viewportRef.current.scrollTo({
+        top: viewportRef.current.scrollHeight,
         behavior: 'smooth',
       });
     }
@@ -144,7 +144,7 @@ export function ChatPanel({
       </header>
 
       {/* Messages */}
-      <ScrollArea className="flex-1" ref={scrollAreaRef}>
+      <ScrollArea className="flex-1" viewportRef={viewportRef}>
         <div className="space-y-6 p-4">
           {messages.map(msg => (
             <ChatMessage key={msg.id} message={msg} />
@@ -182,8 +182,8 @@ export function ChatPanel({
           </Button>
         </div>
         <div className="mt-2.5 flex justify-center gap-x-4 text-xs">
-            <Link href="/datenschutz" className="text-muted-foreground hover:text-foreground">Datenschutz</Link>
-            <Link href="/impressum" className="text-muted-foreground hover:text-foreground">Impressum</Link>
+            <Link href="/recht#datenschutz" className="text-muted-foreground hover:text-foreground">Datenschutz</Link>
+            <Link href="/recht#impressum" className="text-muted-foreground hover:text-foreground">Impressum</Link>
         </div>
       </div>
     </div>
