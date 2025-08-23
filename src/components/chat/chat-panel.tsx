@@ -17,6 +17,11 @@ const WEBHOOK_URL = 'https://myn8n.technomic.at/webhook-test/ec30c1b9-a8eb-4e56-
 const PERSIST_HISTORY = true;
 const STORAGE_KEY_CONVERSATION = 'chatConversation';
 const STORAGE_KEY_ID = 'chatConversationId';
+const INITIAL_BOT_MESSAGE: Message = {
+  id: 'initial-bot-message',
+  role: 'bot',
+  text: 'Hallo! Wir sind der digitale Assistent von TechNomic. Wie können wir Ihnen bei Fragen zu Webdesign, Hosting oder IT-Support helfen?\n\nDurch die Nutzung dieses Chats stimmen Sie unserer Datenschutzerklärung zu.',
+};
 // --------------
 
 export function ChatPanel({
@@ -39,9 +44,13 @@ export function ChatPanel({
     if (PERSIST_HISTORY) {
       const savedMessages = localStorage.getItem(STORAGE_KEY_CONVERSATION);
       const savedId = localStorage.getItem(STORAGE_KEY_ID);
-      if (savedMessages) {
+
+      if (savedMessages && savedMessages !== '[]') {
         setMessages(JSON.parse(savedMessages));
+      } else {
+        setMessages([INITIAL_BOT_MESSAGE]);
       }
+
       if (savedId) {
         setConversationId(savedId);
       } else {
@@ -52,13 +61,17 @@ export function ChatPanel({
     } else {
        const newId = uuidv4();
        setConversationId(newId);
+       setMessages([INITIAL_BOT_MESSAGE]);
     }
   }, []);
 
   // Save messages to localStorage whenever they change
   useEffect(() => {
     if (PERSIST_HISTORY) {
-      localStorage.setItem(STORAGE_KEY_CONVERSATION, JSON.stringify(messages));
+      // Avoid saving the initial message if the user hasn't interacted yet
+      if (messages.length > 1 || (messages.length === 1 && messages[0].id !== INITIAL_BOT_MESSAGE.id)) {
+        localStorage.setItem(STORAGE_KEY_CONVERSATION, JSON.stringify(messages));
+      }
     }
   }, [messages]);
 
