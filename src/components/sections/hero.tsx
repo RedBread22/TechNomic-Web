@@ -14,8 +14,8 @@ export function HeroSection() {
         className="absolute bottom-[-20%] left-[50%] z-[-1] h-[50vw] w-[50vw] -translate-x-1/2 translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,149,0,0.15)_0%,transparent_70%)] opacity-70 blur-3xl"
       ></div>
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-          <div className="text-center lg:text-left">
+        <div className="mx-auto max-w-2xl lg:max-w-none">
+          <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl">
               Innovative IT, Websites & KI-Automatisierung.
             </h1>
@@ -23,7 +23,7 @@ export function HeroSection() {
               Moderne Weblösungen, Cloud-Hosting und smarte Automationen –
               DSGVO-konform und lokal betreut.
             </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
+            <div className="mt-10 flex items-center justify-center gap-x-6">
               <Button asChild size="lg" className="rounded-full relative overflow-hidden">
                 <Link href="#konfigurator">
                   <>
