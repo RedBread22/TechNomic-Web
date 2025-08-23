@@ -23,7 +23,7 @@ const linkColumns = [
 export function FinalSection() {
     const currentYear = new Date().getFullYear();
   return (
-    <section id="abschluss" className="relative bg-background min-h-[60vh] md:min-h-[80vh] overflow-hidden flex items-center py-16">
+    <section id="abschluss" className="relative bg-background overflow-hidden flex items-center py-12">
         {/* Gradient Background */}
         <div
         className="pointer-events-none absolute inset-0 -z-10 h-full w-full"
