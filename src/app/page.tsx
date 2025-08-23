@@ -7,7 +7,6 @@ import { ContactSection } from '@/components/sections/contact';
 import { FinalSection } from '@/components/sections/final';
 import { ImageParallaxSection } from '@/components/sections/image-parallax';
 import { ProcessSection } from '@/components/sections/process';
-import { ReferencesSection } from '@/components/sections/references';
 import { SecuritySection } from '@/components/sections/security';
 import { FaqSection } from '@/components/sections/faq';
 import { ServiceAreaSection } from '@/components/sections/service-area';
@@ -22,7 +21,6 @@ export default function Home() {
         <AdvantagesSection />
         <FounderSection />
         <ProcessSection />
-        <ReferencesSection />
         <SecuritySection />
         <ConfiguratorSection />
         <ServiceAreaSection />

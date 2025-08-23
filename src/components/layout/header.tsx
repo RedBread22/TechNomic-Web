@@ -17,7 +17,6 @@ const navLinks = [
   { href: '#vorteile', label: 'Ihre Vorteile' },
   { href: '#ueber-mich', label: 'Über mich' },
   { href: '#ablauf', label: 'Ablauf' },
-  { href: '#referenzen', label: 'Referenzen' },
   { href: '#konfigurator', label: 'Konfigurator' },
   { href: '#faq', label: 'FAQ' },
   { href: '#kontakt', label: 'Kontakt' },
