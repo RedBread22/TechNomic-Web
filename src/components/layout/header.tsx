@@ -17,8 +17,8 @@ const navLinks = [
   { href: '#vorteile', label: 'Ihre Vorteile' },
   { href: '#ueber-mich', label: 'Über mich' },
   { href: '#ablauf', label: 'Ablauf' },
-  { href: '#konfigurator', label: 'Konfigurator' },
   { href: '#faq', label: 'FAQ' },
+  { href: '#konfigurator', label: 'Konfigurator' },
   { href: '#kontakt', label: 'Kontakt' },
 ];
 
@@ -28,10 +28,9 @@ export function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // scrollThreshold: 10px
       setIsScrolled(window.scrollY > 10);
       const sections = navLinks.map(link => document.querySelector(link.href));
-      const scrollPosition = window.scrollY + 150;
+      const scrollPosition = window.scrollY + 100; // Adjusted offset for better accuracy
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i] as HTMLElement;
@@ -87,10 +86,11 @@ export function Header() {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 w-full bg-transparent backdrop-blur-lg transition-all duration-300',
+        'sticky top-0 z-50 w-full transition-all duration-300',
+        'bg-transparent backdrop-blur-lg',
         isScrolled
-          ? 'border-b border-white/10 bg-black/30'
-          : 'bg-black/0'
+          ? 'border-b border-white/10 bg-black/50'
+          : 'border-b border-transparent bg-black/20'
       )}
     >
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
