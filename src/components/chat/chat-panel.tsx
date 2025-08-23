@@ -14,7 +14,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
 // --- CONFIG ---
-const WEBHOOK_URL = 'https://myn8n.technomic.at/webhook-test/ec30c1b9-a8eb-4e56-a860-c5a48a7f3938';
+const WEBHOOK_URL = 'https://myn8n.technomic.at/webhook/ec30c1b9-a8eb-4e56-a860-c5a48a7f3938';
 const INITIAL_BOT_MESSAGE: Message = {
   id: 'initial-bot-message',
   role: 'bot',
