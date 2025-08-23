@@ -1,8 +1,8 @@
 'use client';
 
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Logo } from '@/components/logo';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 export interface Message {
   id: string;
@@ -21,6 +21,7 @@ export function ChatMessage({ message }: { message: Message }) {
     >
       {isBot && (
         <Avatar className="h-8 w-8 border border-white/10">
+           <AvatarImage src="/images/1Bot.png" alt="Bot-Avatar" />
            <AvatarFallback className="bg-transparent text-sm">AI</AvatarFallback>
         </Avatar>
       )}
