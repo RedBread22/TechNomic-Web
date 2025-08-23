@@ -31,8 +31,7 @@ export function ImageParallaxSection() {
         >
           <Image
             src="/1.png"
-            data-ai-hint="human robot hand"
-            alt="A human hand and a robotic hand reaching towards each other."
+            alt="Abstract digital art"
             width={600}
             height={400}
             className="h-auto w-full max-w-[90%] rounded-lg object-contain md:max-w-full"
