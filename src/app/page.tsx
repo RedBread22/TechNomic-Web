@@ -2,10 +2,15 @@ import { Header } from '@/components/layout/header';
 import { HeroSection } from '@/components/sections/hero';
 import { AdvantagesSection } from '@/components/sections/advantages';
 import { ConfiguratorSection } from '@/components/sections/configurator';
-import { AboutSection } from '@/components/sections/about';
+import { FounderSection } from '@/components/sections/founder';
 import { ContactSection } from '@/components/sections/contact';
 import { FinalSection } from '@/components/sections/final';
 import { ImageParallaxSection } from '@/components/sections/image-parallax';
+import { ProcessSection } from '@/components/sections/process';
+import { ReferencesSection } from '@/components/sections/references';
+import { SecuritySection } from '@/components/sections/security';
+import { FaqSection } from '@/components/sections/faq';
+import { ServiceAreaSection } from '@/components/sections/service-area';
 
 export default function Home() {
   return (
@@ -15,8 +20,13 @@ export default function Home() {
         <HeroSection />
         <ImageParallaxSection />
         <AdvantagesSection />
-        <AboutSection />
+        <FounderSection />
+        <ProcessSection />
+        <ReferencesSection />
+        <SecuritySection />
         <ConfiguratorSection />
+        <FaqSection />
+        <ServiceAreaSection />
         <ContactSection />
         <FinalSection />
       </main>

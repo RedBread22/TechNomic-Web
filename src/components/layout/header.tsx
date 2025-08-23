@@ -15,8 +15,11 @@ import {
 
 const navLinks = [
   { href: '#vorteile', label: 'Ihre Vorteile' },
+  { href: '#ueber-mich', label: 'Über mich' },
+  { href: '#ablauf', label: 'Ablauf' },
+  { href: '#referenzen', label: 'Referenzen' },
   { href: '#konfigurator', label: 'Konfigurator' },
-  { href: '#ueber-uns', label: 'Über uns' },
+  { href: '#faq', label: 'FAQ' },
   { href: '#kontakt', label: 'Kontakt' },
 ];
 
@@ -44,7 +47,7 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const NavContent = () => (
+  const DesktopNav = () => (
     <>
       {navLinks.map(({ href, label }) => (
         <Link
@@ -61,6 +64,25 @@ export function Header() {
       ))}
     </>
   );
+  
+  const MobileNav = () => (
+    <>
+      {navLinks.map(({ href, label }) => (
+        <SheetClose key={href} asChild>
+          <Link
+            href={href}
+            className={cn(
+              'relative py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground',
+              'after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-full after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 after:ease-in-out after:content-[\'\']',
+              activeLink === href && 'text-foreground after:scale-x-100'
+            )}
+          >
+            {label}
+          </Link>
+        </SheetClose>
+      ))}
+    </>
+  );
 
   return (
     <header
@@ -74,7 +96,7 @@ export function Header() {
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Logo />
         <nav className="hidden items-center gap-6 md:flex">
-          <NavContent />
+          <DesktopNav />
         </nav>
         <div className="flex items-center gap-4">
           <Button asChild className="hidden md:flex rounded-full">
@@ -100,11 +122,13 @@ export function Header() {
                     </SheetClose>
                   </div>
                   <nav className="flex flex-col gap-6">
-                    <NavContent />
+                    <MobileNav />
                   </nav>
-                  <Button asChild className="mt-auto rounded-full">
-                    <Link href="#konfigurator">Konfigurator starten</Link>
-                  </Button>
+                  <SheetClose asChild>
+                    <Button asChild className="mt-auto rounded-full">
+                      <Link href="#konfigurator">Konfigurator starten</Link>
+                    </Button>
+                  </SheetClose>
                 </div>
               </SheetContent>
             </Sheet>
