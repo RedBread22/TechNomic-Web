@@ -13,7 +13,7 @@ import { TypingIndicator } from './typing-indicator';
 import Link from 'next/link';
 
 // --- CONFIG ---
-const WEBHOOK_URL = 'https://myn8n.technomic.at/webhook-test/ec30c1b9-a8eb-4e56-a860-c5a48a7f3938';
+const WEBHOOK_URL = 'https://myn8n.technomic.at/webhook/ec30c1b9-a8eb-4e56-a860-c5a48a7f3938';
 const PERSIST_HISTORY = true;
 const STORAGE_KEY_CONVERSATION = 'chatConversation';
 const STORAGE_KEY_ID = 'chatConversationId';
@@ -89,6 +89,7 @@ export function ChatPanel({
         body: JSON.stringify({
           message: text,
           conversationId: conversationId,
+          sessionId: conversationId,
           user: 'website',
           page: window.location.href,
           timestamp: new Date().toISOString(),
