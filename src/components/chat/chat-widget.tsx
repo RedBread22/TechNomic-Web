@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { MessageSquare, X } from 'lucide-react';
+import { MessageSquare } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ChatPanel } from './chat-panel';
@@ -70,7 +70,7 @@ export function ChatWidget() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:items-end sm:justify-end sm:p-6"
+                className="fixed inset-0 z-50 flex items-end justify-center p-4 sm:justify-end sm:p-6"
             >
               <motion.div
                   key="panel"
