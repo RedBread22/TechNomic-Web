@@ -28,6 +28,7 @@ export function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
+      // scrollThreshold: 10px
       setIsScrolled(window.scrollY > 10);
       const sections = navLinks.map(link => document.querySelector(link.href));
       const scrollPosition = window.scrollY + 150;
@@ -86,10 +87,10 @@ export function Header() {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 w-full transition-all duration-300',
+        'sticky top-0 z-50 w-full bg-transparent backdrop-blur-lg transition-all duration-300',
         isScrolled
-          ? 'border-b border-white/10 bg-white/5 backdrop-blur-lg'
-          : 'bg-transparent'
+          ? 'border-b border-white/10 bg-black/30'
+          : 'bg-black/0'
       )}
     >
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
