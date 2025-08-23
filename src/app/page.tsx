@@ -21,9 +21,9 @@ export default function Home() {
         <FounderSection />
         <ProcessSection />
         <SecuritySection />
+        <FaqSection />
         <ConfiguratorSection />
         <ContactSection />
-        <FaqSection />
         <FinalSection />
       </main>
     </div>
