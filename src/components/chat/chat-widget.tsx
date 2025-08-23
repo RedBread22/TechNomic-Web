@@ -23,7 +23,7 @@ const panelVariants = {
   visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.3, ease: 'easeOut' } },
 };
 
-// Dedicated component for the mobile overlay to simplify positioning
+// Dedicated component for the mobile overlay to simplify positioning and avoid layout conflicts.
 const ChatOverlay = ({ onClose }: { onClose: () => void }) => (
     <motion.div
       key="panel-overlay"
