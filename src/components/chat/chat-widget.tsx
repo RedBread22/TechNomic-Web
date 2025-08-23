@@ -11,7 +11,6 @@ import { useIsMobile } from '@/hooks/use-mobile';
 
 // --- CONFIG ---
 const OPEN_ON_LOAD_PARAM = 'chat'; // e.g. ?chat=open
-const STORAGE_KEY_OPEN = 'chatWidgetOpen';
 // --------------
 
 export function ChatWidget() {
@@ -19,22 +18,13 @@ export function ChatWidget() {
   const searchParams = useSearchParams();
   const isMobile = useIsMobile();
 
-  // Handle open state from localStorage and URL param
+  // Handle open state from URL param
   useEffect(() => {
-    const shouldOpenOnLoad = searchParams.get(OPEN_ON_LOAD_PARAM) === 'open';
-    const savedState = localStorage.getItem(STORAGE_KEY_OPEN);
-    
-    if (shouldOpenOnLoad) {
+    if (searchParams.get(OPEN_ON_LOAD_PARAM) === 'open') {
       setIsOpen(true);
-    } else if (savedState) {
-      setIsOpen(JSON.parse(savedState));
     }
   }, [searchParams]);
 
-  // Persist open state to localStorage
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY_OPEN, JSON.stringify(isOpen));
-  }, [isOpen]);
 
   const toggleOpen = () => setIsOpen(prev => !prev);
   

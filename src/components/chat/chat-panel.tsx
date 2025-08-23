@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { SendHorizonal, X } from 'lucide-react';
+import { SendHorizonal, Trash2, X } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,9 +14,6 @@ import Link from 'next/link';
 
 // --- CONFIG ---
 const WEBHOOK_URL = 'https://myn8n.technomic.at/webhook-test/ec30c1b9-a8eb-4e56-a860-c5a48a7f3938';
-const PERSIST_HISTORY = true;
-const STORAGE_KEY_CONVERSATION = 'chatConversation';
-const STORAGE_KEY_ID = 'chatConversationId';
 const INITIAL_BOT_MESSAGE: Message = {
   id: 'initial-bot-message',
   role: 'bot',
@@ -31,7 +28,7 @@ export function ChatPanel({
   onClose: () => void;
   className?: string;
 }) {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([INITIAL_BOT_MESSAGE]);
   const [conversationId, setConversationId] = useState<string>('');
   const [inputValue, setInputValue] = useState('');
   const [isSending, setIsSending] = useState(false);
@@ -39,41 +36,11 @@ export function ChatPanel({
   const { toast } = useToast();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
-  // Load conversation from localStorage on mount
+  // Generate a new conversation ID on initial mount
   useEffect(() => {
-    if (PERSIST_HISTORY) {
-      const savedId = localStorage.getItem(STORAGE_KEY_ID) || uuidv4();
-      setConversationId(savedId);
-      localStorage.setItem(STORAGE_KEY_ID, savedId);
-      
-      const savedMessagesRaw = localStorage.getItem(STORAGE_KEY_CONVERSATION);
-      if (savedMessagesRaw) {
-        try {
-          const savedMessages = JSON.parse(savedMessagesRaw);
-          if (Array.isArray(savedMessages) && savedMessages.length > 0) {
-            setMessages(savedMessages);
-            return;
-          }
-        } catch (e) {
-          console.error("Failed to parse saved messages, starting new chat.", e);
-        }
-      }
-    } else {
-        setConversationId(uuidv4());
-    }
-    // If we reach here, it's a new chat or localStorage was empty/invalid
-    setMessages([INITIAL_BOT_MESSAGE]);
+    setConversationId(uuidv4());
   }, []);
 
-  // Save messages to localStorage whenever they change
-  useEffect(() => {
-    if (PERSIST_HISTORY) {
-      // Avoid saving the initial message if the user hasn't interacted yet
-      if (messages.length > 1 || (messages.length === 1 && messages[0].id !== INITIAL_BOT_MESSAGE.id)) {
-        localStorage.setItem(STORAGE_KEY_CONVERSATION, JSON.stringify(messages));
-      }
-    }
-  }, [messages]);
 
   // Auto-scroll to bottom
   useEffect(() => {
@@ -140,6 +107,11 @@ export function ChatPanel({
       handleSendMessage(inputValue);
     }
   };
+  
+  const handleClearChat = () => {
+    setMessages([INITIAL_BOT_MESSAGE]);
+    setConversationId(uuidv4()); // Start a new conversation
+  };
 
   return (
     <div
@@ -153,10 +125,16 @@ export function ChatPanel({
       {/* Header */}
       <header id="chat-header" className="flex items-center justify-between border-b border-white/10 p-4">
         <h2 className="text-lg font-semibold">Chat</h2>
-        <Button variant="ghost" size="icon" onClick={onClose}>
-          <X className="h-5 w-5" />
-          <span className="sr-only">Chat schließen</span>
-        </Button>
+        <div className="flex items-center gap-1">
+          <Button variant="ghost" size="icon" onClick={handleClearChat}>
+            <Trash2 className="h-5 w-5" />
+            <span className="sr-only">Chat löschen</span>
+          </Button>
+          <Button variant="ghost" size="icon" onClick={onClose}>
+            <X className="h-5 w-5" />
+            <span className="sr-only">Chat schließen</span>
+          </Button>
+        </div>
       </header>
 
       {/* Messages */}
