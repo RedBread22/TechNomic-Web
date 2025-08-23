@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 
 export function ImageParallaxSection() {
   const [scrollY, setScrollY] = useState(0);
@@ -29,9 +28,10 @@ export function ImageParallaxSection() {
           className="w-full max-w-[600px] transition-transform duration-800 ease-out"
           style={{ transform: `scale(${scale})` }}
         >
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="/1.png"
-            alt="Abstract digital art"
+            alt="Parallax Image"
             width={600}
             height={400}
             className="h-auto w-full max-w-[90%] rounded-lg object-contain md:max-w-full"
