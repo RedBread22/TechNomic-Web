@@ -52,7 +52,7 @@ export function Header() {
           href={href}
           className={cn(
             'relative py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground',
-            'after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 after:ease-in-out after:content-[\'\']',
+            'after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-full after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 after:ease-in-out after:content-[\'\']',
             activeLink === href && 'text-foreground after:scale-x-100'
           )}
         >
@@ -67,7 +67,7 @@ export function Header() {
       className={cn(
         'sticky top-0 z-50 w-full transition-all duration-300',
         isScrolled
-          ? 'border-b border-white/10 bg-background/50 backdrop-blur-lg'
+          ? 'border-b border-white/10 bg-white/5 backdrop-blur-lg'
           : 'bg-transparent'
       )}
     >
