@@ -49,6 +49,7 @@ export function ChatWidget() {
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
+                className="fixed bottom-4 left-1/2 w-full max-w-[calc(100%-2rem)] -translate-x-1/2 sm:static sm:w-auto sm:max-w-none sm:translate-x-0"
             >
              <ChatPanel onClose={() => setIsOpen(false)} />
             </motion.div>
