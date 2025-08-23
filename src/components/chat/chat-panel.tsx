@@ -42,27 +42,27 @@ export function ChatPanel({
   // Load conversation from localStorage on mount
   useEffect(() => {
     if (PERSIST_HISTORY) {
-      const savedMessages = localStorage.getItem(STORAGE_KEY_CONVERSATION);
-      const savedId = localStorage.getItem(STORAGE_KEY_ID);
-
-      if (savedMessages && savedMessages !== '[]') {
-        setMessages(JSON.parse(savedMessages));
-      } else {
-        setMessages([INITIAL_BOT_MESSAGE]);
-      }
-
-      if (savedId) {
-        setConversationId(savedId);
-      } else {
-        const newId = uuidv4();
-        setConversationId(newId);
-        localStorage.setItem(STORAGE_KEY_ID, newId);
+      const savedId = localStorage.getItem(STORAGE_KEY_ID) || uuidv4();
+      setConversationId(savedId);
+      localStorage.setItem(STORAGE_KEY_ID, savedId);
+      
+      const savedMessagesRaw = localStorage.getItem(STORAGE_KEY_CONVERSATION);
+      if (savedMessagesRaw) {
+        try {
+          const savedMessages = JSON.parse(savedMessagesRaw);
+          if (Array.isArray(savedMessages) && savedMessages.length > 0) {
+            setMessages(savedMessages);
+            return;
+          }
+        } catch (e) {
+          console.error("Failed to parse saved messages, starting new chat.", e);
+        }
       }
     } else {
-       const newId = uuidv4();
-       setConversationId(newId);
-       setMessages([INITIAL_BOT_MESSAGE]);
+        setConversationId(uuidv4());
     }
+    // If we reach here, it's a new chat or localStorage was empty/invalid
+    setMessages([INITIAL_BOT_MESSAGE]);
   }, []);
 
   // Save messages to localStorage whenever they change
