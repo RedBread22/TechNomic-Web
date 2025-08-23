@@ -58,6 +58,13 @@ export function ChatPanel({
       });
     }
   }, [messages, isBotTyping]);
+  
+  // Refocus input after message is sent
+  useEffect(() => {
+    if (!isSending) {
+      inputRef.current?.focus();
+    }
+  }, [isSending]);
 
 
   const handleSendMessage = async (text: string) => {
@@ -105,7 +112,6 @@ export function ChatPanel({
     } finally {
       setIsSending(false);
       setIsBotTyping(false);
-      inputRef.current?.focus();
     }
   };
 
