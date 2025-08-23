@@ -29,7 +29,7 @@ export function FinalSection() {
         className="pointer-events-none absolute inset-0 -z-10 h-full w-full"
         aria-hidden="true"
         >
-            <div className="absolute inset-0 z-[-1] bg-[linear-gradient(to_bottom,transparent_0%,hsl(var(--background))_100%)]"></div>
+            <div className="absolute inset-0 z-[-1] bg-[linear-gradient(to_top,transparent_0%,hsl(var(--background))_100%)]"></div>
             <div className="saturate-[1.2] opacity-100">
                 <div className="absolute left-[20%] top-[75%] h-[90vw] w-[90vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,59,48,0.55)_0%,transparent_70%)]"></div>
                 <div className="absolute left-[65%] top-[68%] h-[85vw] w-[85vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,45,146,0.55)_0%,transparent_70%)]"></div>
