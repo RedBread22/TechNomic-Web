@@ -28,7 +28,7 @@ export function ImageParallaxSection() {
           alt="Parallax Image"
           width={600}
           height={400}
-          className="h-auto w-full max-w-[600px] rounded-lg object-contain transition-transform duration-500 ease-out will-change-transform"
+          className="h-auto w-full max-w-[800px] rounded-lg object-contain transition-transform duration-500 ease-out will-change-transform"
           style={{ transform: `scale(${scale})` }}
         />
       </div>
