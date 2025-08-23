@@ -16,13 +16,13 @@ export function Footer() {
             </p>
           </div>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
-            <Link href="#" className="text-foreground/80 hover:text-foreground">
+            <Link href="/impressum" className="text-foreground/80 hover:text-foreground">
               Impressum
             </Link>
-            <Link href="#" className="text-foreground/80 hover:text-foreground">
+            <Link href="/datenschutz" className="text-foreground/80 hover:text-foreground">
               Datenschutz
             </Link>
-            <Link href="#" className="text-foreground/80 hover:text-foreground">
+            <Link href="/agb" className="text-foreground/80 hover:text-foreground">
               AGB
             </Link>
           </div>

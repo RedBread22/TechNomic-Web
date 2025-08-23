@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { ChatMessage, type Message } from './chat-message';
 import { TypingIndicator } from './typing-indicator';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 // --- CONFIG ---
 const WEBHOOK_URL = 'https://myn8n.technomic.at/webhook-test/ec30c1b9-a8eb-4e56-a860-c5a48a7f3938';
@@ -28,18 +29,23 @@ export function ChatPanel({
   onClose: () => void;
   className?: string;
 }) {
-  const [messages, setMessages] = useState<Message[]>([INITIAL_BOT_MESSAGE]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [conversationId, setConversationId] = useState<string>('');
   const [inputValue, setInputValue] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [isBotTyping, setIsBotTyping] = useState(false);
   const { toast } = useToast();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const searchParams = useSearchParams();
 
-  // Generate a new conversation ID on initial mount
+  const isPersistenceDisabled = searchParams.get('chat') !== 'keep';
+
+  // Generate a new conversation ID on initial mount or when persistence is disabled
   useEffect(() => {
-    setConversationId(uuidv4());
-  }, []);
+    const newId = uuidv4();
+    setConversationId(newId);
+    setMessages([INITIAL_BOT_MESSAGE]);
+  }, [isPersistenceDisabled]);
 
 
   // Auto-scroll to bottom
@@ -176,8 +182,8 @@ export function ChatPanel({
           </Button>
         </div>
         <div className="mt-2.5 flex justify-center gap-x-4 text-xs">
-            <Link href="#" className="text-muted-foreground hover:text-foreground">Datenschutz</Link>
-            <Link href="#" className="text-muted-foreground hover:text-foreground">Impressum</Link>
+            <Link href="/datenschutz" className="text-muted-foreground hover:text-foreground">Datenschutz</Link>
+            <Link href="/impressum" className="text-muted-foreground hover:text-foreground">Impressum</Link>
         </div>
       </div>
     </div>

@@ -79,9 +79,9 @@ export function FinalSection() {
                     <div className="flex flex-col items-center justify-between gap-4 text-sm md:flex-row">
                         <p className="text-white/50">© {currentYear} TechNomic</p>
                         <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-                            <Link href="#" className="text-white/70 transition-colors hover:text-white">Impressum</Link>
-                            <Link href="#" className="text-white/70 transition-colors hover:text-white">Datenschutz</Link>
-                            <Link href="#" className="text-white/70 transition-colors hover:text-white">AGB</Link>
+                            <Link href="/impressum" className="text-white/70 transition-colors hover:text-white">Impressum</Link>
+                            <Link href="/datenschutz" className="text-white/70 transition-colors hover:text-white">Datenschutz</Link>
+                            <Link href="/agb" className="text-white/70 transition-colors hover:text-white">AGB</Link>
                             <Link href="#" className="text-white/70 transition-colors hover:text-white">Cookies verwalten</Link>
                         </div>
                     </div>
