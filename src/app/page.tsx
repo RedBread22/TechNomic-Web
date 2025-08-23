@@ -1,11 +1,11 @@
 import { Header } from '@/components/layout/header';
-import { Footer } from '@/components/layout/footer';
 import { HeroSection } from '@/components/sections/hero';
 import { AdvantagesSection } from '@/components/sections/advantages';
 import { ConfiguratorSection } from '@/components/sections/configurator';
 import { AboutSection } from '@/components/sections/about';
 import { ContactSection } from '@/components/sections/contact';
 import { InterludeSection } from '@/components/sections/interlude';
+import { FinalSection } from '@/components/sections/final';
 
 export default function Home() {
   return (
@@ -19,7 +19,7 @@ export default function Home() {
         <ConfiguratorSection />
         <ContactSection />
       </main>
-      <Footer />
+      <FinalSection />
     </div>
   );
 }
