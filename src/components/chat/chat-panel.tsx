@@ -101,7 +101,7 @@ export function ChatPanel({
       }
 
       const responseData = await response.json();
-      const botReplyText = responseData.reply || 'Entschuldigung, ich konnte keine Antwort finden.';
+      const botReplyText = responseData.output || 'Entschuldigung, ich konnte keine Antwort finden.';
       
       const newBotMessage: Message = { id: uuidv4(), role: 'bot', text: botReplyText };
       setMessages(prev => [...prev, newBotMessage]);
