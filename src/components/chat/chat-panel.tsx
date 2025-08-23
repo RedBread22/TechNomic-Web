@@ -120,7 +120,7 @@ export function ChatPanel({
     <div
       className={cn(
         // Mobile: max-w-full, Desktop: max-w-[420px]
-        'flex h-[70vh] w-full max-w-full md:max-w-[420px] flex-col overflow-hidden rounded-2xl border border-white/10 bg-background/50 shadow-2xl backdrop-blur-xl',
+        'flex h-[70vh] w-full max-w-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-background/50 shadow-2xl backdrop-blur-xl md:max-w-[420px]',
         className
       )}
       role="dialog"

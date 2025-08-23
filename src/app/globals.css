@@ -39,6 +39,10 @@
   html {
     @apply scroll-smooth;
   }
+  html,
+  body {
+    @apply overflow-x-hidden;
+  }
   body {
     @apply bg-background text-foreground;
     background-color: #121622;
