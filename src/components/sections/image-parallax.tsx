@@ -30,7 +30,8 @@ export function ImageParallaxSection() {
           style={{ transform: `scale(${scale})` }}
         >
           <Image
-            src="/1.png"
+            src="https://placehold.co/600x400.png"
+            data-ai-hint="human robot hand"
             alt="A human hand and a robotic hand reaching towards each other."
             width={600}
             height={400}
