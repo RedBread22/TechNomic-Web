@@ -38,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de" className="dark">
-      <body className={`${inter.variable} font-body antialiased`}>
+      <body className={`${inter.variable} font-body antialiased overflow-x-hidden`}>
         <AppProvider>
           <Background />
           {children}
