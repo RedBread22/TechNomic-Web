@@ -23,7 +23,7 @@ const linkColumns = [
 export function FinalSection() {
     const currentYear = new Date().getFullYear();
   return (
-    <section id="abschluss" className="relative bg-background min-h-[80vh] md:min-h-screen overflow-hidden">
+    <section id="abschluss" className="relative bg-background min-h-[60vh] md:min-h-[80vh] overflow-hidden flex items-center py-16">
         {/* Gradient Background */}
         <div
         className="pointer-events-none absolute inset-0 -z-10 h-full w-full"
@@ -45,7 +45,7 @@ export function FinalSection() {
         </div>
 
         {/* Black Panel */}
-        <div className="relative z-10 mx-auto my-20 w-[calc(100%-32px)] max-w-6xl md:w-[calc(100%-64px)]">
+        <div className="relative z-10 mx-auto w-[calc(100%-32px)] max-w-6xl md:w-[calc(100%-64px)]">
             <div className="relative rounded-3xl border border-white/10 bg-black p-8 text-white/85 shadow-2xl shadow-black/60 md:p-12">
                 <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
                     <Logo />

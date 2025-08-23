@@ -18,8 +18,8 @@ export default function Home() {
         <InterludeSection />
         <ConfiguratorSection />
         <ContactSection />
+        <FinalSection />
       </main>
-      <FinalSection />
     </div>
   );
 }
