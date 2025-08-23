@@ -30,12 +30,11 @@ export function ImageParallaxSection() {
           style={{ transform: `scale(${scale})` }}
         >
           <Image
-            src="/creation-of-adam-ai.png"
-            alt="A human hand and a robotic hand reaching towards each other, in the style of The Creation of Adam."
+            src="/1.png"
+            alt="A human hand and a robotic hand reaching towards each other."
             width={600}
             height={400}
             className="h-auto w-full max-w-[90%] rounded-lg object-contain md:max-w-full"
-            data-ai-hint="creation of adam robot"
           />
         </div>
       </div>
