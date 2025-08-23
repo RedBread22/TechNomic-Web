@@ -40,7 +40,7 @@ export function HeroSection() {
           <div className="relative flex justify-center lg:justify-end">
             <div className="rounded-xl border border-white/10 bg-white/5 p-2 backdrop-blur-lg">
                 <Image
-                  src="https://placehold.co/600x400.png"
+                  src="/images/hero-image.png"
                   alt="Illustration von Charts und Code"
                   width={600}
                   height={400}

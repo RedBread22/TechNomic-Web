@@ -18,7 +18,9 @@ export function ImageParallaxSection() {
     };
   }, []);
 
-  const scale = Math.min(Math.max(1 + (scrollY - 500) / 1000, 1), 1.2);
+  // Adjust the starting point of the scroll effect if needed
+  const scrollStart = 500;
+  const scale = Math.min(Math.max(1 + (scrollY - scrollStart) / 1000, 1), 1.2);
 
   return (
     <section className="relative h-[50vh] overflow-hidden bg-transparent">
@@ -28,7 +30,7 @@ export function ImageParallaxSection() {
           style={{ transform: `scale(${scale})` }}
         >
           <Image
-            src="https://placehold.co/600x400.png"
+            src="/images/1.png"
             alt="Parallax Image"
             width={600}
             height={400}
