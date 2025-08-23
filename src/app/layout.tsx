@@ -5,6 +5,7 @@ import { AppProvider } from '@/context/app-context';
 import { Toaster } from '@/components/ui/toaster';
 import { Background } from '@/components/background';
 import { ChatWidget } from '@/components/chat/chat-widget';
+import { Suspense } from 'react';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
@@ -43,7 +44,9 @@ export default function RootLayout({
           <Background />
           {children}
           <Toaster />
-          <ChatWidget />
+          <Suspense fallback={null}>
+            <ChatWidget />
+          </Suspense>
         </AppProvider>
       </body>
     </html>
