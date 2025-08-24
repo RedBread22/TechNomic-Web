@@ -95,4 +95,32 @@
     pointer-events: none;
     filter: blur(40px);
   }
+
+  /* Styles for Markdown rendering in chat bubbles */
+  .markdown-bubble {
+    @apply whitespace-pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  .markdown-bubble p:not(:last-child) {
+    @apply mb-3;
+  }
+  .markdown-bubble a {
+    @apply text-accent underline hover:no-underline;
+  }
+  .markdown-bubble ul,
+  .markdown-bubble ol {
+    @apply my-2 ml-5;
+  }
+  .markdown-bubble ul {
+    @apply list-disc;
+  }
+  .markdown-bubble ol {
+    @apply list-decimal;
+  }
+  .markdown-bubble li:not(:last-child) {
+    @apply mb-1;
+  }
+  .markdown-bubble code {
+    @apply rounded bg-black/50 px-1 py-0.5 font-mono text-sm;
+  }
 }
