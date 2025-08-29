@@ -105,13 +105,20 @@ export function ChatPanel({
     setIsBotTyping(true);
 
     try {
-      // Send as POST with text/plain to be robust against CORS issues
+      const payload = {
+        message: text,
+        sessionId: conversationId,
+        user: 'website',
+        page: window.location.href,
+        timestamp: new Date().toISOString(),
+      };
+      
       await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: {
-          'Content-Type': 'text/plain',
+          'Content-Type': 'application/json',
         },
-        body: text,
+        body: JSON.stringify(payload),
       });
 
       const botReplyText = "Vielen Dank für Ihre Nachricht. Ich habe sie erhalten und werde mich in Kürze bei Ihnen melden.";
