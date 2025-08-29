@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { MarkdownRenderer } from './markdown-renderer';
 
 const WEBHOOK_URL = 'https://myn8n.technomic.at/webhook-test/ec30c1b9-a8eb-4e56-a860-c5a48a7f3938';
 const INITIAL_BOT_MESSAGE: Message = {
@@ -21,6 +22,39 @@ const INITIAL_BOT_MESSAGE: Message = {
   role: 'bot',
   text: 'Hallo! Wir sind der digitale Assistent von TechNomic. Wie können wir Ihnen bei Fragen zu Webdesign, Hosting oder IT-Support helfen?\n\nDurch die Nutzung dieses Chats stimmen Sie unserer Datenschutzerklärung zu.',
 };
+
+function formatStructuredResponse(data: any): string {
+  const {
+    headline = 'Super, Klem! 🙌 Ich hab hier alles notiert:',
+    date,
+    time,
+    tz = 'Europe/Vienna',
+    topic,
+    email,
+  } = data;
+
+  let formattedDate = '';
+  if (date) {
+    try {
+      formattedDate = new Date(date).toLocaleDateString('de-AT', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+    } catch (e) {
+      formattedDate = date; // fallback to original
+    }
+  }
+
+  const parts = [headline];
+  if (formattedDate) parts.push(`- **Datum:** ${formattedDate}`);
+  if (time) parts.push(`- **Uhrzeit:** ${time} (${tz})`);
+  if (topic) parts.push(`- **Thema:** ${topic}`);
+  if (email) parts.push(`- **E-Mail:** ${email}`);
+
+  return parts.join('\n\n');
+}
 
 export function ChatPanel({
   onClose,
@@ -88,8 +122,23 @@ export function ChatPanel({
 
       if (!response.ok) throw new Error('Network response was not ok');
 
-      const responseData = await response.json();
-      const botReplyText = responseData.output || 'Entschuldigung, ich konnte keine Antwort finden.';
+      const contentType = response.headers.get('content-type');
+      let botReplyText = 'Entschuldigung, ich konnte keine Antwort finden.';
+
+      if (contentType && contentType.includes('application/json')) {
+        const responseData = await response.json();
+        
+        if (responseData.reply || responseData.output || responseData.message || responseData.text) {
+           botReplyText = responseData.reply || responseData.output || responseData.message || responseData.text;
+        } else if (Object.keys(responseData).length > 0) {
+          // It's a structured object, format it
+          botReplyText = formatStructuredResponse(responseData);
+        }
+
+      } else {
+        botReplyText = await response.text();
+      }
+
       const newBotMessage: Message = { id: uuidv4(), role: 'bot', text: botReplyText };
       setMessages(prev => [...prev, newBotMessage]);
     } catch (error) {
