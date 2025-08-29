@@ -6,7 +6,7 @@ import { Check, MapPin, Rocket, Users } from 'lucide-react';
 
 export function FounderSection() {
   return (
-    <section id="ueber-mich" className="relative scroll-mt-24 bg-transparent py-24 sm:py-32">
+    <section id="ueber-mich" className="relative bg-transparent py-24 sm:py-32">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center lg:gap-24">
           <div className="relative flex justify-center">

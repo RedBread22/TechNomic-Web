@@ -49,7 +49,7 @@ export function ConfiguratorSection() {
   const addons = modules.filter(m => m.type === 'addon');
 
   return (
-    <section id="konfigurator" className="relative scroll-mt-24 bg-black py-40 sm:py-48">
+    <section id="konfigurator" className="relative bg-black py-40 sm:py-48">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
