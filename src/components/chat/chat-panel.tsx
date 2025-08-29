@@ -122,7 +122,30 @@ export function ChatPanel({
       });
 
       if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
+        // Try to extract a meaningful error message from the response body
+        let errorMsg = `Fehler: ${response.status} ${response.statusText}`;
+        try {
+          const rawText = await response.text();
+          if (rawText) {
+            try {
+              const data = JSON.parse(rawText);
+              errorMsg = data.message || data.error || rawText.trim() || errorMsg;
+            } catch {
+              errorMsg = rawText.trim() || errorMsg;
+            }
+          }
+        } catch {
+          /* ignore */
+        }
+        const newBotMessage: Message = {
+          id: uuidv4(),
+          role: 'bot',
+          text: errorMsg,
+        };
+        setMessages(prev => [...prev, newBotMessage]);
+        setIsBotTyping(false);
+        setIsSending(false);
+        return;
       }
       
       const contentType = response.headers.get('content-type');
@@ -137,7 +160,11 @@ export function ChatPanel({
           responseData = JSON.parse(textData);
         } catch (e) {
            // If it's not JSON, treat it as a plain text reply.
-          const newBotMessage: Message = { id: uuidv4(), role: 'bot', text: textData.trim() || 'Ich habe Ihre Nachricht erhalten.' };
+          const newBotMessage: Message = {
+            id: uuidv4(),
+            role: 'bot',
+            text: textData.trim() || 'Ich habe Ihre Nachricht erhalten.',
+          };
           setMessages(prev => [...prev, newBotMessage]);
           setIsBotTyping(false);
           setIsSending(false);
