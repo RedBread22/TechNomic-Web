@@ -106,9 +106,6 @@ export function ChatPanel({
     try {
       const response = await fetch(WEBHOOK_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           message: text,
           sessionId: conversationId,
