@@ -106,6 +106,9 @@ export function ChatPanel({
     try {
       const response = await fetch(WEBHOOK_URL, {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
           message: text,
           sessionId: conversationId,
@@ -126,9 +129,11 @@ export function ChatPanel({
         responseData = await response.json();
       } else {
         const textData = await response.text();
+        // Attempt to parse text as JSON, useful for misconfigured servers
         try {
           responseData = JSON.parse(textData);
         } catch (e) {
+           // If it's not JSON, treat it as a plain text reply.
           const newBotMessage: Message = { id: uuidv4(), role: 'bot', text: textData.trim() || 'Ich habe Ihre Nachricht erhalten.' };
           setMessages(prev => [...prev, newBotMessage]);
           setIsBotTyping(false);
@@ -137,17 +142,21 @@ export function ChatPanel({
         }
       }
       
+      // Handle n8n's array-based output
       if (Array.isArray(responseData) && responseData.length > 0) {
         responseData = responseData[0];
       }
 
       let botReplyText = 'Entschuldigung, ich konnte keine passende Antwort finden.';
       if (typeof responseData === 'object' && responseData !== null) {
+        // Check for various possible keys for the reply
         if (responseData.reply || responseData.output || responseData.message || responseData.text) {
           botReplyText = responseData.reply || responseData.output || responseData.message || responseData.text;
         } else if (responseData.date || responseData.topic) {
+          // Format a structured response if specific keys are present
           botReplyText = formatStructuredResponse(responseData);
         } else {
+           // Fallback for unknown object structures
            botReplyText = JSON.stringify(responseData);
         }
       } else if (typeof responseData === 'string') {
