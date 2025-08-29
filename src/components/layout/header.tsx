@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -23,26 +22,6 @@ const navLinks = [
 ];
 
 export function Header() {
-  const [activeLink, setActiveLink] = useState('');
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = navLinks.map(link => document.querySelector(link.href));
-      const scrollPosition = window.scrollY + 100; // Adjusted offset for better accuracy
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i] as HTMLElement;
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveLink(navLinks[i].href);
-          break;
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const DesktopNav = () => (
     <>
@@ -52,8 +31,7 @@ export function Header() {
           href={href}
           className={cn(
             'relative py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground',
-            'after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-full after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 after:ease-in-out after:content-[\'\']',
-            activeLink === href && 'text-foreground after:scale-x-100'
+            'after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-full after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 after:ease-in-out after:content-[\'\']'
           )}
         >
           {label}
@@ -70,8 +48,7 @@ export function Header() {
             href={href}
             className={cn(
               'relative py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground',
-              'after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-full after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 after:ease-in-out after:content-[\'\']',
-              activeLink === href && 'text-foreground after:scale-x-100'
+              'after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-full after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 after:ease-in-out after:content-[\'\']'
             )}
           >
             {label}
