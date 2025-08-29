@@ -96,6 +96,55 @@ export function ChatPanel({
     }
   }, [isSending]);
 
+  const getBotReply = async (text: string): Promise<string> => {
+     try {
+       const queryParams = new URLSearchParams({
+         message: text,
+         sessionId: conversationId,
+         user: 'website',
+         page: window.location.href,
+         timestamp: new Date().toISOString(),
+       });
+       const response = await fetch(`${WEBHOOK_URL}?${queryParams.toString()}`);
+       if (!response.ok) {
+         throw new Error(`Network response was not ok: ${response.statusText}`);
+       }
+
+       const contentType = response.headers.get('content-type');
+       let responseData;
+
+       if (contentType && contentType.includes('application/json')) {
+         responseData = await response.json();
+       } else {
+         const textData = await response.text();
+         try {
+           responseData = JSON.parse(textData);
+         } catch (e) {
+           return textData.trim() || 'Ich habe Ihre Nachricht erhalten.';
+         }
+       }
+       
+       if (Array.isArray(responseData) && responseData.length > 0) {
+         responseData = responseData[0];
+       }
+
+       if (typeof responseData === 'object' && responseData !== null) {
+         if (responseData.reply || responseData.output || responseData.message || responseData.text) {
+           return responseData.reply || responseData.output || responseData.message || responseData.text;
+         }
+         if (responseData.date || responseData.topic) {
+           return formatStructuredResponse(responseData);
+         }
+       }
+       
+       return JSON.stringify(responseData);
+
+     } catch (error) {
+       console.error('Error fetching bot reply:', error);
+       return 'Entschuldigung, ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.';
+     }
+   };
+
   const handleSendMessage = async (text: string) => {
     if (!text.trim() || isSending) return;
 
@@ -106,33 +155,8 @@ export function ChatPanel({
     setIsBotTyping(true);
 
     try {
-      const payload = {
-        message: text,
-        sessionId: conversationId,
-        user: 'website',
-        page: window.location.href,
-        timestamp: new Date().toISOString(),
-      };
-      
-      const response = await fetch(WEBHOOK_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
-      }
-
-      const responseData = await response.json();
-      
-      // Extract message from n8n response format: [{"output": "message..."}]
-      const botReplyText = responseData?.[0]?.output || 'Entschuldigung, ich konnte keine passende Antwort finden.';
-
+      const botReplyText = await getBotReply(text);
       const newBotMessage: Message = { id: uuidv4(), role: 'bot', text: botReplyText };
-
       setMessages(prev => [...prev, newBotMessage]);
 
     } catch (error) {
@@ -162,51 +186,6 @@ export function ChatPanel({
     setConversationId(uuidv4());
   };
 
-  const getBotReply = async (text: string): Promise<string> => {
-     try {
-       const queryParams = new URLSearchParams({
-         message: text,
-         conversationId,
-         sessionId: conversationId,
-         user: 'website',
-         page: window.location.href,
-         timestamp: new Date().toISOString(),
-       });
-       const response = await fetch(`${WEBHOOK_URL}?${queryParams.toString()}`);
-       if (!response.ok) {
-         throw new Error(`Network response was not ok: ${response.statusText}`);
-       }
-
-       const contentType = response.headers.get('content-type');
-       let responseData;
-
-       if (contentType && contentType.includes('application/json')) {
-         responseData = await response.json();
-       } else {
-         const textData = await response.text();
-         try {
-           responseData = JSON.parse(textData);
-         } catch (e) {
-           return textData.trim() || 'Ich habe Ihre Nachricht erhalten.';
-         }
-       }
-
-       if (typeof responseData === 'object' && responseData !== null) {
-         if (responseData.reply || responseData.output || responseData.message || responseData.text) {
-           return responseData.reply || responseData.output || responseData.message || responseData.text;
-         }
-         if (responseData.date || responseData.topic) {
-           return formatStructuredResponse(responseData);
-         }
-       }
-       
-       return JSON.stringify(responseData);
-
-     } catch (error) {
-       console.error('Error fetching bot reply:', error);
-       return 'Entschuldigung, ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.';
-     }
-   };
 
   return (
     <div
@@ -273,3 +252,5 @@ export function ChatPanel({
     </div>
   );
 }
+
+    
