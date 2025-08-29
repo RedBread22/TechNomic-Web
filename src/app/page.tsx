@@ -9,6 +9,7 @@ import { ImageParallaxSection } from '@/components/sections/image-parallax';
 import { ProcessSection } from '@/components/sections/process';
 import { SecuritySection } from '@/components/sections/security';
 import { FaqSection } from '@/components/sections/faq';
+import { Footer } from '@/components/layout/footer';
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
         <ContactSection />
         <FinalSection />
       </main>
+      <Footer />
     </div>
   );
 }
