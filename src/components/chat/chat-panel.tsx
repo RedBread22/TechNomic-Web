@@ -12,6 +12,8 @@ import { ChatMessage, type Message } from './chat-message';
 import { TypingIndicator } from './typing-indicator';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const WEBHOOK_URL = 'https://myn8n.technomic.at/webhook/ec30c1b9-a8eb-4e56-a860-c5a48a7f3938';
 const INITIAL_BOT_MESSAGE: Message = {
@@ -119,8 +121,7 @@ export function ChatPanel({
   return (
     <div
       className={cn(
-        // Mobile: max-w-full, Desktop: max-w-[420px]
-        'flex h-[70vh] w-full max-w-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-background/50 shadow-2xl backdrop-blur-xl md:max-w-[420px]',
+        'flex h-[70vh] w-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-background/50 shadow-2xl backdrop-blur-xl',
         className
       )}
       role="dialog"

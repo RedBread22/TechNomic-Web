@@ -66,16 +66,17 @@ export function ChatWidget() {
       {/* Panel */}
       <AnimatePresence>
         {isOpen && (
-          <>
+          <ChatPortal>
             {isMobile ? (
-              // MOBILE: Overlay + Bottom-Sheet (volle Breite minus Safe-Area)
-              <ChatPortal>
+              // MOBILE: Overlay + Bottom-Sheet
+              <>
                 <motion.div
                   key="overlay"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="fixed inset-0 z-[9997] bg-black/50"
+                  className="fixed inset-0 z-[9998] bg-black/50"
+                  onClick={toggleOpen}
                 />
                 <motion.div
                   key="sheet"
@@ -83,21 +84,20 @@ export function ChatWidget() {
                   initial="hidden"
                   animate="visible"
                   exit="hidden"
-                  className="fixed z-[9999]"
-                  style={{
+                  className="fixed z-[9999] flex justify-center"
+                   style={{
                     left: 'max(12px, env(safe-area-inset-left))',
                     right: 'max(12px, env(safe-area-inset-right))',
                     bottom: 'max(12px, env(safe-area-inset-bottom))',
                   }}
                 >
-                  <div className="mx-auto w-full max-w-[420px]">
+                  <div className="w-full max-w-[420px]">
                     <ChatPanel onClose={() => setIsOpen(false)} />
                   </div>
                 </motion.div>
-              </ChatPortal>
+              </>
             ) : (
-              // DESKTOP: Bottom-Right, Breite gekappt
-              <ChatPortal>
+              // DESKTOP: Bottom-Right, width capped
                 <motion.div
                   key="panel-desktop"
                   variants={panelVariants}
@@ -107,15 +107,14 @@ export function ChatWidget() {
                   className="fixed z-[9999]"
                   style={{
                     right: 'max(16px, env(safe-area-inset-right))',
-                    bottom: 'calc(max(16px, env(safe-area-inset-bottom)) + 96px)',
+                    bottom: 'calc(max(16px, env(safe-area-inset-bottom)) + 80px)',
                     width: 'min(420px, calc(100vw - 32px))',
                   }}
                 >
                   <ChatPanel onClose={() => setIsOpen(false)} />
                 </motion.div>
-              </ChatPortal>
             )}
-          </>
+          </ChatPortal>
         )}
       </AnimatePresence>
     </>
