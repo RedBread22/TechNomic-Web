@@ -117,7 +117,7 @@ main {
 }
 
 /* Sections targeted by in-page links: keep small anchor offset (tune value if needed) */
-section[id] { scroll-margin-top: 96px; } /* ~ header height; adjust if header is different */
+section[id] { scroll-margin-top: 64px; } /* ~ header height; adjust if header is different */
 
 /* Prevent long content from widening the page */
 .markdown-bubble, .chat-bubble, body {
@@ -130,5 +130,5 @@ html, body { overflow-x: hidden; }
 
 /* Optional DEBUG: outline header when ?debug=nav is present */
 @media (prefers-reduced-motion: no-preference) {
-  :root:has(:where([data-debug-nav="1"])) #site-header { outline: 1px dashed lime; }
+  :root:has(:where([data-debug-nav="1"])) #main-header { outline: 1px dashed lime; }
 }
