@@ -111,13 +111,7 @@ export function ChatPanel({
         headers: {
           'Content-Type': 'text/plain',
         },
-        body: JSON.stringify({
-          message: text,
-          sessionId: conversationId,
-          user: 'website',
-          page: window.location.href,
-          timestamp: new Date().toISOString(),
-        }),
+        body: text,
       });
 
       const botReplyText = "Vielen Dank für Ihre Nachricht. Ich habe sie erhalten und werde mich in Kürze bei Ihnen melden.";
