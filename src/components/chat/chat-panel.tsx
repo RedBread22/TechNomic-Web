@@ -113,7 +113,6 @@ export function ChatPanel({
         },
         body: JSON.stringify({
           message: text,
-          conversationId,
           sessionId: conversationId,
           user: 'website',
           page: window.location.href,
