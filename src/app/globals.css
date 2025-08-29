@@ -106,14 +106,6 @@
   }
 }
 
-/* --- NAVBAR UNSTICKY + WINDOW SCROLL ENFORCEMENT --- */
-#site-header {
-  position: static !important;        /* ensure not fixed/sticky */
-  top: auto !important;
-  inset-block-start: auto !important; /* neutralize 'top:0' if present */
-  z-index: auto;                      /* no overlay stacking unless needed */
-}
-
 /* The page must scroll on window, not inside <main> or wrappers */
 html, body, main { overflow-y: visible !important; }
 html, body, #__next { height: auto !important; }
