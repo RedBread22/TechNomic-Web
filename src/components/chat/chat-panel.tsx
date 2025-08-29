@@ -15,7 +15,7 @@ import { useSearchParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-const WEBHOOK_URL = 'https://myn8n.technomic.at/webhook/ec30c1b9-a8eb-4e56-a860-c5a48a7f3938';
+const WEBHOOK_URL = 'https://myn8n.technomic.at/webhook-test/ec30c1b9-a8eb-4e56-a860-c5a48a7f3938';
 const INITIAL_BOT_MESSAGE: Message = {
   id: 'initial-bot-message',
   role: 'bot',
@@ -72,17 +72,18 @@ export function ChatPanel({
     setIsBotTyping(true);
 
     try {
-      const response = await fetch(WEBHOOK_URL, {
-        method: 'POST',
+      const queryParams = new URLSearchParams({
+        message: text,
+        conversationId,
+        sessionId: conversationId,
+        user: 'website',
+        page: window.location.href,
+        timestamp: new Date().toISOString(),
+      });
+      
+      const response = await fetch(`${WEBHOOK_URL}?${queryParams.toString()}`, {
+        method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: text,
-          conversationId,
-          sessionId: conversationId,
-          user: 'website',
-          page: window.location.href,
-          timestamp: new Date().toISOString(),
-        }),
       });
 
       if (!response.ok) throw new Error('Network response was not ok');
