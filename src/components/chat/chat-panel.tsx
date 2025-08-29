@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
@@ -113,7 +114,7 @@ export function ChatPanel({
         timestamp: new Date().toISOString(),
       };
       
-      await fetch(WEBHOOK_URL, {
+      const response = await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -121,14 +122,18 @@ export function ChatPanel({
         body: JSON.stringify(payload),
       });
 
-      const botReplyText = "Vielen Dank für Ihre Nachricht. Ich habe sie erhalten und werde mich in Kürze bei Ihnen melden.";
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+
+      const responseData = await response.json();
+      
+      // Extract message from n8n response format: [{"output": "message..."}]
+      const botReplyText = responseData?.[0]?.output || 'Entschuldigung, ich konnte keine passende Antwort finden.';
+
       const newBotMessage: Message = { id: uuidv4(), role: 'bot', text: botReplyText };
 
-      setTimeout(() => {
-        setIsBotTyping(false);
-        setMessages(prev => [...prev, newBotMessage]);
-        setIsSending(false);
-      }, 1200);
+      setMessages(prev => [...prev, newBotMessage]);
 
     } catch (error) {
       console.error('Error sending message:', error);
@@ -139,8 +144,9 @@ export function ChatPanel({
       });
       const errorBotMessage: Message = { id: uuidv4(), role: 'bot', text: 'Fehler: Nachricht konnte nicht gesendet werden.' };
       setMessages(prev => [...prev, errorBotMessage]);
-      setIsSending(false);
+    } finally {
       setIsBotTyping(false);
+      setIsSending(false);
     }
   };
 
