@@ -14,7 +14,6 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { MarkdownRenderer } from './markdown-renderer';
 
 const WEBHOOK_URL = 'https://myn8n.technomic.at/webhook-test/ec30c1b9-a8eb-4e56-a860-c5a48a7f3938';
 const INITIAL_BOT_MESSAGE: Message = {
@@ -124,9 +123,16 @@ export function ChatPanel({
       // The n8n webhook will still receive the data. 
       // We will add a generic "I'll get back to you" message since we cannot read the actual response.
       
-      const botReplyText = 'Vielen Dank für Ihre Nachricht. Ich habe sie erhalten und werde mich in Kürze bei Ihnen melden.';
+      const botReplyText = "Vielen Dank für Ihre Nachricht. Ich habe sie erhalten und werde mich in Kürze bei Ihnen melden.";
       const newBotMessage: Message = { id: uuidv4(), role: 'bot', text: botReplyText };
-      setMessages(prev => [...prev, newBotMessage]);
+      
+      // Artificial delay to simulate processing
+      setTimeout(() => {
+        setIsBotTyping(false);
+        setMessages(prev => [...prev, newBotMessage]);
+        setIsSending(false);
+      }, 1200);
+
 
     } catch (error) {
       console.error('Error sending message:', error);
@@ -137,7 +143,6 @@ export function ChatPanel({
       });
       const errorBotMessage: Message = { id: uuidv4(), role: 'bot', text: 'Fehler: Nachricht konnte nicht gesendet werden.' };
       setMessages(prev => [...prev, errorBotMessage]);
-    } finally {
       setIsSending(false);
       setIsBotTyping(false);
     }
@@ -154,6 +159,52 @@ export function ChatPanel({
     setMessages([INITIAL_BOT_MESSAGE]);
     setConversationId(uuidv4());
   };
+
+  const getBotReply = async (text: string): Promise<string> => {
+     try {
+       const queryParams = new URLSearchParams({
+         message: text,
+         conversationId,
+         sessionId: conversationId,
+         user: 'website',
+         page: window.location.href,
+         timestamp: new Date().toISOString(),
+       });
+       const response = await fetch(`${WEBHOOK_URL}?${queryParams.toString()}`);
+       if (!response.ok) {
+         throw new Error(`Network response was not ok: ${response.statusText}`);
+       }
+
+       const contentType = response.headers.get('content-type');
+       let responseData;
+
+       if (contentType && contentType.includes('application/json')) {
+         responseData = await response.json();
+       } else {
+         const textData = await response.text();
+         try {
+           responseData = JSON.parse(textData);
+         } catch (e) {
+           return textData.trim() || 'Ich habe Ihre Nachricht erhalten.';
+         }
+       }
+
+       if (typeof responseData === 'object' && responseData !== null) {
+         if (responseData.reply || responseData.output || responseData.message || responseData.text) {
+           return responseData.reply || responseData.output || responseData.message || responseData.text;
+         }
+         if (responseData.date || responseData.topic) {
+           return formatStructuredResponse(responseData);
+         }
+       }
+       
+       return JSON.stringify(responseData);
+
+     } catch (error) {
+       console.error('Error fetching bot reply:', error);
+       return 'Entschuldigung, ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.';
+     }
+   };
 
   return (
     <div
