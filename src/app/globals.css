@@ -36,8 +36,10 @@
   * {
     @apply border-border;
   }
-  html {
+  html,
+  body {
     @apply scroll-smooth;
+    overflow-x: hidden;
   }
   body {
     @apply bg-background text-foreground;
@@ -79,6 +81,7 @@
   .markdown-bubble {
     @apply whitespace-pre-wrap;
     overflow-wrap: anywhere;
+    word-break: break-word;
   }
   .markdown-bubble p:not(:last-child) {
     @apply mb-3;
