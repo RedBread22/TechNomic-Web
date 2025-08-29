@@ -47,23 +47,6 @@
     @apply bg-background text-foreground;
     background-color: #121622;
   }
-  /* Apply mask only to direct section children of the main content area */
-  main > section {
-    mask-image: linear-gradient(
-      to bottom,
-      transparent 0%,
-      black 15%,
-      black 85%,
-      transparent 100%
-    );
-    -webkit-mask-image: linear-gradient(
-      to bottom,
-      transparent 0%,
-      black 15%,
-      black 85%,
-      transparent 100%
-    );
-  }
 }
 
 @layer utilities {
