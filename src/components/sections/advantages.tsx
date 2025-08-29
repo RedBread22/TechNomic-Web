@@ -48,7 +48,7 @@ const advantages = [
 
 export function AdvantagesSection() {
   return (
-    <section id="vorteile" className="relative bg-transparent py-24 sm:py-32">
+    <section id="vorteile" className="relative scroll-mt-24 bg-transparent py-24 sm:py-32">
        <div className="section-glow-pink" />
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">

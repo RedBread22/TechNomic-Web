@@ -83,7 +83,7 @@ export function Header() {
 
   return (
     <header
-      className="w-full border-b border-white/10 bg-background/80 backdrop-blur-lg"
+      className="relative w-full border-b border-white/10 bg-background/80 backdrop-blur-lg"
     >
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Logo />
