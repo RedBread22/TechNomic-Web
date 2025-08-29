@@ -117,30 +117,17 @@ export function ChatPanel({
       
       const response = await fetch(`${WEBHOOK_URL}?${queryParams.toString()}`, {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
+        mode: 'no-cors'
       });
 
-      if (!response.ok) throw new Error('Network response was not ok');
-
-      const contentType = response.headers.get('content-type');
-      let botReplyText = 'Entschuldigung, ich konnte keine Antwort finden.';
-
-      if (contentType && contentType.includes('application/json')) {
-        const responseData = await response.json();
-        
-        if (responseData.reply || responseData.output || responseData.message || responseData.text) {
-           botReplyText = responseData.reply || responseData.output || responseData.message || responseData.text;
-        } else if (Object.keys(responseData).length > 0) {
-          // It's a structured object, format it
-          botReplyText = formatStructuredResponse(responseData);
-        }
-
-      } else {
-        botReplyText = await response.text();
-      }
-
+      // When using 'no-cors', we can't check response.ok, so we optimistically assume it succeeded.
+      // The n8n webhook will still receive the data. 
+      // We will add a generic "I'll get back to you" message since we cannot read the actual response.
+      
+      const botReplyText = 'Vielen Dank für Ihre Nachricht. Ich habe sie erhalten und werde mich in Kürze bei Ihnen melden.';
       const newBotMessage: Message = { id: uuidv4(), role: 'bot', text: botReplyText };
       setMessages(prev => [...prev, newBotMessage]);
+
     } catch (error) {
       console.error('Error sending message:', error);
       toast({
