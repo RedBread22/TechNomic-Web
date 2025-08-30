@@ -17,7 +17,7 @@ export function HeroSection() {
         <div className="mx-auto max-w-2xl lg:max-w-none">
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl">
-              Innovative IT, Websites & KI-Automatisierung.
+              Innovative IT, Websites &<br /> KI-Automatisierung.
             </h1>
             <p className="mt-6 text-lg leading-8 text-foreground/80">
               Moderne Weblösungen, Cloud-Hosting und smarte Automationen –
